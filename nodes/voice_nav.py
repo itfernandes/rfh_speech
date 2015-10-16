@@ -5,7 +5,7 @@
   Based on the voice_cmd_vel.py script by Michael Ferguson in the pocketsphinx ROS package.
 """
 
-import roslib; roslib.load_manifest('speech_rfpb')
+import roslib; roslib.load_manifest('rfh_speech')
 import rospy
 
 from geometry_msgs.msg import Twist

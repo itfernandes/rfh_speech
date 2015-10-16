@@ -1,11 +1,11 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 """
   Based on voice_nav.py.
 
 """
 
-import roslib; roslib.load_manifest('speech_rfpb')
+import roslib; roslib.load_manifest('rfh_speech')
 import rospy
 
 from geometry_msgs.msg import Twist
@@ -26,8 +26,8 @@ class voice_cmd:
 			 ]
         self.people = ['joseph','mary', 'john']
         #rospy.on_shutdown(self.cleanup)
-        self.rate = rospy.get_param("~rate", 5)
-        r = rospy.Rate(self.rate)
+        #self.rate = rospy.get_param("~rate", 5)
+        #r = rospy.Rate(self.rate)
         self.paused = False
         
         # Subscribe to the /recognizer/output topic to receive voice commands.
@@ -41,6 +41,7 @@ class voice_cmd:
         sl = 'jude'
         if sl in speech:
             ct = 1
+            print 'Yes'
 
     def speechcommands(self, msg):
         
@@ -49,7 +50,7 @@ class voice_cmd:
         speech = msg.data
 
         if ct == 1:
-        
+            
             #Separating the words
         
             words = speech.split()
@@ -97,7 +98,14 @@ class voice_cmd:
             
             ct = 0
         
-if __name__=="__main__":
-    rospy.init_node('voice_nav')
-    voice_cmd()
-    rospy.spin() 
+
+def main(args):
+    vc = voice_cmd()
+    rospy.init_node('voice_cmd', anonymous=True)
+    try:
+        rospy.spin()
+    except KeyboardInterrupt:
+        print "Shutting down"
+
+if __name__ == '__main__':
+    main(sys.argv)

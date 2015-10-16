@@ -4,7 +4,7 @@
     talkback.py - Say back what is heard by the pocketsphinx recognizer.
 """
 
-import roslib; roslib.load_manifest('pi_speech_tutorial')
+import roslib; roslib.load_manifest('rfh_speech')
 import rospy
 from std_msgs.msg import String
 

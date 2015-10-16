@@ -5,7 +5,7 @@
   
 """
 
-import roslib; roslib.load_manifest('speech_rfpb')
+import roslib; roslib.load_manifest('rfh_speech')
 import rospy
 
 from geometry_msgs.msg import Twist
