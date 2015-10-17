@@ -4,5 +4,7 @@
     <param name="lm" value="$(find rfh_speech)/config/nav_commands.lm"/>
     <param name="dict" value="$(find rfh_speech)/config/nav_commands.dic"/>
   </node>
+
+  <node name="play" pkg="sound_play" type="soundplay_node.py" />
   
 </launch>

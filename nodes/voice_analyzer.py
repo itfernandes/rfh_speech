@@ -12,6 +12,7 @@ import sys
 from geometry_msgs.msg import Twist
 from std_msgs.msg import String
 from math import copysign
+from sound_play.libsoundplay import SoundClient
 
 class voice_analyzer:
 	def __init__(self):
@@ -28,6 +29,11 @@ class voice_analyzer:
 		self.people = ['joseph','mary', 'john']
 		#rospy.on_shutdown(self.cleanup)
 		self.paused = False
+
+		#initialize the soundplay service
+		self.soundhandle = SoundClient()
+		self.voice = rospy.get_param("~voice", "voice_don_diphone")
+		self.wavepath = rospy.get_param("~wavepath", "")
 		
 		# Subscribe to the /recognizer/output topic to receive voice commands.
 		self.sc_sub = rospy.Subscriber('/recognizer/output', String, self.speechcommands)
@@ -40,7 +46,10 @@ class voice_analyzer:
 		sl = 'jude'
 		if sl in speech:
 			ct = 1
-			print 'Yes'
+			self.soundhandle.playWave(self.wavepath + "R2D2a.wav")
+			rospy.sleep(1)
+			self.soundhandle.say('yes yes yes', self.voice)
+
 
 	def speechcommands(self, msg):
 		
@@ -107,4 +116,4 @@ def main(args):
 		print "Shutting down"
 
 if __name__ == '__main__':
-    main(sys.argv)
+	main(sys.argv)
