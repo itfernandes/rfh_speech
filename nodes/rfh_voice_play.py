@@ -20,13 +20,14 @@ class voice_play:
 		rospy.Subscriber('speech', String, self.talkback)
 
 	def talkback(self, msg):
-		rospy.loginfo(msg.data)
+		#rospy.loginfo(msg.data)
 		self.sound_handle.stopAll()
-		rospy.sleep(1)
-		self.sound_handle.playWave(self.wavepath + "R2D2a.wav")
-		rospy.sleep(1)
+		# rospy.sleep(1)
+		# self.sound_handle.playWave(self.wavepath + "R2D2a.wav")
 		self.sound_handle.say(msg.data, self.voice)
-
+		rospy.sleep(2)
+		
+		
 def main(args):
 	vp = voice_play()
 	rospy.init_node('voice_play', anonymous=True)
