@@ -9,7 +9,7 @@ from sound_play.libsoundplay import SoundClient
 
 class voice_play:
 	def __init__(self):
-		self.voice = rospy.get_param("~voice", "voice_don_diphone")
+		self.voice = rospy.get_param("~voice", "voice_cmu_us_clb_arctic_clunits")
 		self.wavepath = rospy.get_param("~wavepath", "")
 
 		self.sound_handle = SoundClient()

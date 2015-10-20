@@ -32,7 +32,7 @@ class voice_analyzer:
 
 		#initialize the soundplay service
 		self.soundhandle = SoundClient()
-		self.voice = rospy.get_param("~voice", "voice_don_diphone")
+		self.voice = rospy.get_param("~voice", "voice_cmu_us_clb_arctic_clunits")
 		self.wavepath = rospy.get_param("~wavepath", "")
 		
 		# Subscribe to the /recognizer/output topic to receive voice commands.
@@ -46,9 +46,9 @@ class voice_analyzer:
 		sl = 'jude'
 		if sl in speech:
 			ct = 1
-			self.soundhandle.playWave(self.wavepath + "R2D2a.wav")
+			#self.soundhandle.playWave(self.wavepath + "R2D2a.wav")
 			rospy.sleep(1)
-			self.soundhandle.say('yes yes yes', self.voice)
+			self.soundhandle.say('Ne mo you are fuck ing hot!', self.voice)
 
 
 	def speechcommands(self, msg):
