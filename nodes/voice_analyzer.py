@@ -18,7 +18,7 @@ class voice_analyzer:
 	def __init__(self):
 		global ct
 		ct = 0
-		self.verbs = ['go','find','get']
+		self.verbs = ['go','find','get', 'follow']
 		self.places = ['kitchen','bedroom','living','bathroom','hall']
 		self.questions = ['what time is it', 'what is the capital of brazil', 'how much is two plus two',
 			  'how many rings have the symbol of the olympics', 'where will be the robocup two thousand and sixteen',
@@ -47,13 +47,13 @@ class voice_analyzer:
 		if sl in speech:
 			ct = 1
 			#self.soundhandle.playWave(self.wavepath + "R2D2a.wav")
-			rospy.sleep(1)
-			self.soundhandle.say('Ne mo you are fuck ing hot!', self.voice)
+			rospy.sleep(0.02)
+			self.soundhandle.say('i am here!', self.voice)
 
 
 	def speechcommands(self, msg):
 		
-		global ct 
+		global ct
 		
 		speech = msg.data
 
@@ -105,7 +105,11 @@ class voice_analyzer:
 			rospy.loginfo("Command: " + str(speech))
 			
 			ct = 0
-		
+
+			if 'follow' in wverb:
+				alo = 1
+				pub.publish(str(alo))
+
 
 def main(args):
 	vc = voice_analyzer()
@@ -116,4 +120,7 @@ def main(args):
 		print "Shutting down"
 
 if __name__ == '__main__':
+	pub = rospy.Publisher('followme', String, queue_size=10)
 	main(sys.argv)
+
+
