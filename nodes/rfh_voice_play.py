@@ -17,10 +17,10 @@ class voice_play:
 		rospy.sleep(1)
 		rospy.loginfo("Say node ready to play...")
 
-		rospy.Subscriber('speech', String, self.talkback)
+		rospy.Subscriber('/speech', String, self.talkback)
 
 	def talkback(self, msg):
-		#rospy.loginfo(msg.data)
+		rospy.loginfo(msg.data)
 		self.sound_handle.stopAll()
 		# rospy.sleep(1)
 		# self.sound_handle.playWave(self.wavepath + "R2D2a.wav")
@@ -35,7 +35,6 @@ def main(args):
 		rospy.spin()
 	except KeyboardInterrupt:
 		print "Shutting down"
-	cv2.destroyAllWindows()
 
 if __name__ == '__main__':
 	main(sys.argv)
