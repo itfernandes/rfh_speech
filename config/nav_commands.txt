@@ -1,42 +1,40 @@
 find
 follow
-me
 go
 Jude
-ay
-get
-kitchen
-badroom
-bathroom
-living room
-what time is it
-go to the hall
-go to the kitchen room
-go to the bathroom
-Joseph
-John
-what is the capital of brazil
-brazilia
-wow much is two plus two
-four
-how many rings have the symbol of the olympics
-five
-where will be the robocup two thousand and sixteen
-twenty
-leipzig
-germany 
-how many sides have a square
-in what state is the Lacerda elevator
-salvador
-bahia
-in what state is the Christ Redeemer
-rio de janeiro
-in what state is located the city Spain Sea
-minas gerais
-what is the name of this university
-federal university of uberlandia
-what is the name of this robocup league
-at
-home
-Mary
-cancel
+what
+is 
+the 
+capital
+of
+brazil
+how
+much
+two plus two
+many
+have 
+symbol
+olympics
+where 
+will be 
+two thousand and sixteen
+16
+sides 
+a square
+in 
+state 
+lacerda elevator
+christ redeemer
+located 
+city 
+spain
+mar de espanha
+name
+university
+robocup league
+ts
+uh
+um
+ahn
+sss
+

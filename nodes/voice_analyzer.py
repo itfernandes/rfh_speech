@@ -16,17 +16,14 @@ from sound_play.libsoundplay import SoundClient
 
 class voice_analyzer:
 	def __init__(self):
-		global ct
-		global word
-		ct = 0
-		word = 0
-		self.verbs = ['go','find','get', 'follow']
+		self.ct = 0
+		self.word = 0
+		self.verbs = ['follow', 'ts', 'uh', 'um', 'ahn', 'sss']
 		self.places = ['kitchen','bedroom','living','bathroom','hall']
-		self.questions = ['time', 'capital', 'two plus two',
-						  'symbol', 'where', 'square', 'state', 'elevator', 'redeemer',
+		self.questions = ['time', 'brazil', 'two plus two',
+						  'olympics', 'thousand', 'sides', 'state', 'elevator', 'christ',
 			   			  'located', 'university','robocup league', ]
 		self.people = ['joseph','mary', 'john']
-		#rospy.on_shutdown(self.cleanup)
 		self.paused = False
 
 		#initialize the soundplay service
@@ -39,36 +36,20 @@ class voice_analyzer:
 		self.sl_sub = rospy.Subscriber('/recognizer/output', String, self.startlistening)
 		rospy.loginfo("Ready to receive voice commands")
 
+
 	def startlistening(self, msg):
-		global ct
-		global word
 		speech = msg.data
 		sl = 'jude'
 		if sl in speech:
-			ct = 1
-			word = word + 1
-			#self.soundhandle.playWave(self.wavepath + "R2D2a.wav")
+			self.ct = 1
+			self.soundhandle.say('i am here', self.voice)
 			rospy.sleep(0.02)
-			if word == 1:
-				self.soundhandle.say('i am here!', self.voice)
-			elif word == 2:
-				self.soundhandle.say('hello!', self.voice)
-			elif word == 3:
-				self.soundhandle.say('say!', self.voice)	
-			elif word == 4:
-				self.soundhandle.say('hi!', self.voice)	
-			elif word >= 5:
-				word = 1		
-
 
 
 	def speechcommands(self, msg):
-		
-		global ct
-		
 		speech = msg.data
 
-		if ct == 1:
+		if self.ct == 1:
 			
 			#Separating the words
 		
@@ -114,71 +95,74 @@ class voice_analyzer:
 
 			print 'actions: ', wverb, ', positions : ', wplace, ', people: ', wpeople,', questions: ', cquestion
 			rospy.loginfo("Command: " + str(speech))
-			
-			if wquestion not in self.questions:
-				self.soundhandle.say('Sorry, i did not under stand what you said, but i am beautiful', self.voice)
-				rospy.sleep(5)
-				self.soundhandle.say('please repeat your question', self.voice)
-				rospy.sleep(3)		
 
-			if 'follow' in wverb:
-				alo = 1
-				pub.publish(str(alo))
-				ct = 0
+			#print self.questions
+			#print cquestion
+			#print wquestion
+			#print cquestion in self.questions
+			#print wquestion in self.questions
+			#print speech 
+			#print words
 
-			elif 'capital' in wquestion:
-				rospy.sleep(0.02)
-				self.soundhandle.say('brasi lia', self.voice)
-				ct = 0
-			
-			elif 'two plus two' in cquestion:
-				rospy.sleep(0.1)
-				self.soundhandle.say('fawr', self.voice)
-				ct = 0							
+
+			if words:
+				if not wquestion and not cquestion and not wverb:
+					self.soundhandle.say('Sorry, i did not under stand what you said', self.voice)
+					rospy.sleep(3.2)
+					self.soundhandle.say('please repeat your question', self.voice)
+					rospy.sleep(2)
+
+				#if 'follow' in wverb:
+				#	alo = 1
+				#	pub.publish(str(alo))
+				#	self.ct = 0
+
+				if 'brazil' in wquestion:
+					rospy.sleep(0.02)
+					self.soundhandle.say('brasi lia', self.voice)
 				
-			elif 'symbol' in wquestion:
-				rospy.sleep(0.02)
-				self.soundhandle.say('five', self.voice)
-				ct = 0
-			
-			elif 'where' in wquestion:
-				rospy.sleep(0.02)
-				self.soundhandle.say('Leipzig', self.voice)
-				rospy.sleep(1.5)
-				self.soundhandle.say('Germany', self.voice)
-				ct = 0
+				elif 'two plus two' in cquestion:
+					rospy.sleep(0.1)
+					self.soundhandle.say('fawr', self.voice)
 
-			elif 'square' in wquestion:
-				rospy.sleep(0.02)
-				self.soundhandle.say('fawr', self.voice)
-				ct = 0
+				elif 'olympics' in wquestion:
+					rospy.sleep(0.02)
+					self.soundhandle.say('five', self.voice)
+				
+				elif 'thousand' in wquestion:
+					rospy.sleep(0.02)
+					self.soundhandle.say('Leipzig', self.voice)
+					rospy.sleep(1.5)
+					self.soundhandle.say('Germany', self.voice)
 
-			elif 'elevator' in wquestion:
-				rospy.sleep(0.02)
-				self.soundhandle.say('baea', self.voice)
-				ct = 0
+				elif 'sides' in wquestion:
+					rospy.sleep(0.02)
+					self.soundhandle.say('fawr', self.voice)
 
-			elif 'redeemer' in wquestion:
-				rospy.sleep(0.02)
-				self.soundhandle.say('rio de ja nei ro', self.voice)
-				ct = 0
+				elif 'elevator' in wquestion:
+					rospy.sleep(0.02)
+					self.soundhandle.say('baea', self.voice)
 
-			elif 'located' in wquestion:
-				rospy.sleep(0.02)
-				self.soundhandle.say('mi nas j r eyes', self.voice)
-				ct = 0
+				elif 'christ' in wquestion:
+					rospy.sleep(0.02)
+					self.soundhandle.say('rio de ja nei ro', self.voice)
 
-			elif 'university' in wquestion:
-				rospy.sleep(0.02) 
-				self.soundhandle.say('federal', self.voice)
-				rospy.sleep(1)
-				self.soundhandle.say('university of uber landia', self.voice)
-				ct = 0 
+				elif 'located' in wquestion:
+					rospy.sleep(0.02)
+					self.soundhandle.say('mi nas j r eyes', self.voice)
 
-			elif 'robocup league' in cquestion:
-				rospy.sleep(0.02)
-				self.soundhandle.say('at home', self.voice)
-				ct = 0
+				elif 'university' in wquestion:
+					rospy.sleep(0.02) 
+					self.soundhandle.say('federal', self.voice)
+					rospy.sleep(1)
+					self.soundhandle.say('university of uber landia', self.voice)
+
+				elif 'robocup league' in cquestion:
+					rospy.sleep(0.02)
+					self.soundhandle.say('at home', self.voice)
+
+				self.ct = 0
+
 
 def main(args):
 	vc = voice_analyzer()
